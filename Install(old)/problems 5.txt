@@ -1,0 +1,25 @@
+16.
+a. 1250 1250
+b. 350 1250
+c. ID stage and the new time is 1125
+d. 35%
+e. 20%
+
+17. 
+(n*k)/k or n this is because n*k gives you the total number of stages necessary but with pipe lining you can reduce the necessary stages for n by k.
+
+20. 
+addi $s0, $s1, 5
+NOP
+add  $s2, $s0, $s1
+addi $s3, $s0, 15
+add  $s4, $s2, $s1
+
+22.
+a. it will stall at mem on lw execute on beq
+b. It is possible but not always
+c. structural hazards must be handled in hardware as unlike data it is not interacting with software
+d. 23
+
+24.
+Choice 2 because the stall needs to come before the execution

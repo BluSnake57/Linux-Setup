@@ -1,0 +1,2 @@
+winetricks amstream quartz lavfilters
+

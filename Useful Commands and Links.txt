@@ -1,0 +1,11 @@
+#Command to see current video drivers ex: if using nouveau or nvidia
+sudo lspci -v -s 01:00.0
+
+#See current Kernel version
+uname -r
+
+#See system logs (sleep type changes etc.)
+journalctl | grep PM
+
+#Link to sign nvidia drivers
+https://blog.monosoul.dev/2022/05/17/automatically-sign-nvidia-kernel-module-in-fedora-36/
