@@ -14,6 +14,7 @@ csharp='Y'
 
 #Programs
 vscode='Y'
+wireshark='Y'
 unity='Y'
 steam='Y'
 lutris='Y'
@@ -74,9 +75,6 @@ fi
 echo 'Installing Dependencies'
 sudo dnf install flatpak $args
 sudo dnf install pkg-config $args
-sudo dnf install make $args
-sudo dnf install patch $args
-sudo dnf install dnf-plugins-core $args
 
 echo 'Installing Code Development Kits'
 #sudo dnf install java-latest-openjdk-devel $args
@@ -106,6 +104,11 @@ if [ $vscode = 'Y' ]; then
 	sudo flatpak install com.visualstudio.code $args
 fi
 
+#Installing Wireshark
+if [ $wireshark = 'Y' ]; then
+	sudo flatpak install fedora app/org.wireshark.Wireshark/x86_64/stable $args
+fi
+
 #Installing Docker
 if [ $docker = 'Y' ]; then
 	sudo dnf -y install dnf-plugins-core
@@ -125,7 +128,7 @@ if [ $steam = 'Y' ]; then
 fi
 
 if [ $lutris = 'Y' ]; then
-	sudo flatpak install lutris $args
+	sudo dnf install lutris $args
 fi
 
 if [ $wine = 'Y' ]; then
@@ -135,7 +138,7 @@ fi
 echo 'Installing Apps'
 
 if [ $vesktop = 'Y' ]; then
-	flatpak install flathub dev.vencord.vesktop $args
+	sudo flatpak install flathub dev.vencord.vesktop $args
 fi
 
 if [ $chrome = 'Y' ]; then
