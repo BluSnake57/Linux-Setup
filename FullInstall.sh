@@ -20,7 +20,7 @@ lutris='Y'
 wine='Y'
 chrome='Y'
 docker='Y'
-discord='Y'
+vesktop='Y'
 krita='Y'
 echo $automatic
 if [ $automatic = 'Y' ]; then
@@ -46,18 +46,29 @@ if [ "$nvidia" = 'Y' ]; then
 	if [ "$in" != "y" ]; then
 		break
 	fi
-	
-	echo 'Installing Nvidia Drivers'
-	sudo dnf install akmod-nvidia $args
-	sudo dnf install kernel-devel $args
-	sudo dnf install xorg-x11-drv-nvidia-cuda $args
 
-	echo 'Signing Nvidia Drivers'
-	sudo dnf install kmodtool akmods mokutil openssl
-	sudo kmodgenca -a
-	sudo mokutil --import /etc/pki/akmods/certs/public_key.der
-	sudo akmods --force
-	sudo dracut --force
+	echo 'Adding Nvidia Repository'
+	sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+	echo 'Installing Nvidia Drivers'
+	sudo dnf update -y
+	sudo dnf install kernel-devel
+	sudo dnf install akmod-nvidia xorg-x11-drv-nvidia-cuda
+
+	echo 'Starting Nvidia Service'
+	sudo systemctl enable nvidia-hibernate.service nvidia-suspend.service nvidia-resume.service nvidia-powerd.service
+	
+	# echo 'Installing Nvidia Drivers'
+	# sudo dnf install akmod-nvidia $args
+	# sudo dnf install kernel-devel $args
+	# sudo dnf install xorg-x11-drv-nvidia-cuda $args
+
+	# echo 'Signing Nvidia Drivers'
+	# sudo dnf install kmodtool akmods mokutil openssl
+	# sudo kmodgenca -a
+	# sudo mokutil --import /etc/pki/akmods/certs/public_key.der
+	# sudo akmods --force
+	# sudo dracut --force
 fi
 
 echo 'Installing Dependencies'
@@ -81,7 +92,7 @@ if [ $cpp = 'Y' ]; then
 	sudo dnf install gcc-c++ $args
 fi
 
-if [ $c-sharp = 'Y' ] || [ unity = 'Y' ]; then
+if [ $csharp = 'Y' ] || [ unity = 'Y' ]; then
 	sudo dnf install dotnet-sdk-3.1 $args
 	sudo dnf install dotnet $args
 fi
@@ -123,8 +134,8 @@ fi
 
 echo 'Installing Apps'
 
-if [ $discord = 'Y' ]; then
-	sudo flatpak install discord $args
+if [ $vesktop = 'Y' ]; then
+	flatpak install flathub dev.vencord.vesktop $args
 fi
 
 if [ $chrome = 'Y' ]; then
